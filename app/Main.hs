@@ -1,6 +1,7 @@
 module Main where
 
 import           AST
+import           Evaluator
 
 main :: IO ()
 main = putStrLn $ show (eval trm)
