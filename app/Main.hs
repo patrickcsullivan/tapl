@@ -14,3 +14,6 @@ main = putStrLn $ show (eval trm)
 
 out = TermSucc (SrcInfo { lineNum = -1, charNum = -1 })
                (TermZero (SrcInfo { lineNum = -1, charNum = -1 }))
+
+out2 = TermSucc (SrcInfo { lineNum = -1, charNum = -1 })
+                (TermZero (SrcInfo { lineNum = -1, charNum = -1 }))
