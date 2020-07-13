@@ -4,7 +4,7 @@ data SrcInfo = SrcInfo
     { lineNum :: Int
     , charNum :: Int
     }
-    deriving (Show, Eq, Ord)
+    deriving (Show, Eq)
 
 data Term
     = TermTrue
@@ -14,4 +14,4 @@ data Term
     | TermSucc Term
     | TermPred Term
     | TermIsZero Term
-    deriving (Show, Eq, Ord)
+    deriving (Show, Eq)
