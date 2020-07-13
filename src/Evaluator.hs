@@ -144,30 +144,38 @@ evalSmall _ trm = if isVal [] trm
 
 {- | Big-step evalution. (Could still be optimized more.)
 -}
-eval :: Term -> Term
-eval (TermTrue       ) = TermTrue
-eval (TermFalse      ) = TermFalse
-eval (TermIf t1 t2 t3) = case eval t1 of
-  TermTrue  -> eval t2
-  TermFalse -> eval t3
+eval :: Ctx -> Term -> Term
+-- Arithmetic
+eval ctx (TermTrue       ) = TermTrue
+eval ctx (TermFalse      ) = TermFalse
+eval ctx (TermIf t1 t2 t3) = case eval ctx t1 of
+  TermTrue  -> eval ctx t2
+  TermFalse -> eval ctx t3
   _         -> error "first arg to if must evaluate to a Boolean"
-eval TermZero = TermZero
-eval (TermSucc t1) =
-  let t1' = eval t1
+eval ctx TermZero = TermZero
+eval ctx (TermSucc t1) =
+  let t1' = eval ctx t1
   in  if isNumericVal t1'
         then (TermSucc t1')
         else error "arg to succ must be a numeric val"
-eval (TermPred t1) = case eval t1 of
+eval ctx (TermPred t1) = case eval ctx t1 of
   TermZero -> TermZero
   (TermSucc u1) ->
-    let u1' = eval u1
+    let u1' = eval ctx u1
     in  if isNumericVal u1'
           then u1'
           else error "arg to succ must be a numeric val"
   _ -> error "arg to pred must be a numeric val"
-eval (TermIsZero t1) = case eval t1 of
+eval ctx (TermIsZero t1) = case eval ctx t1 of
   TermZero           -> TermTrue
   t | isNumericVal t -> TermFalse
   _                  -> error "arg to isZero must be a numeric val"
-
-
+-- Lambda calculus
+eval ctx (TermApp t1 t2) =
+  let t1' = eval ctx t1
+      t2' = eval ctx t2
+  in  case t1' of
+        (TermAbs _ t12) -> eval ctx $ substituteTopTerm t2' t12
+        _               -> error "an arg can only be applied to an abstraction"
+-- Values
+eval ctx t = if isVal ctx t then t else error $ "no rule applies to " ++ show t

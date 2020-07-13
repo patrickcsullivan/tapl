@@ -6,9 +6,12 @@ import           Evaluator
 main :: IO ()
 main = putStrLn $ show (evalSmall [] trm)
 
-f =
-  TermAbs "x" (TermIf (TermVar 0 1) (TermSucc (TermSucc (TermZero))) (TermZero))
+f = TermAbs "x" (TermIf (TermVar 0 1) plusTwo plusOne)
 
 g = TermAbs "x" (TermIsZero (TermVar 0 1))
 
-trm = TermApp f (TermApp g TermZero)
+plusOne = TermAbs "x" (TermSucc (TermVar 0 2))
+
+plusTwo = TermAbs "x" (TermSucc (TermSucc (TermVar 0 2)))
+
+trm = TermApp (TermApp f (TermApp g TermZero)) (TermSucc TermZero)
