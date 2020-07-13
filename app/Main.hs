@@ -6,14 +6,9 @@ import           Evaluator
 main :: IO ()
 main = putStrLn $ show (eval trm)
  where
-  trm = TermIf
-    noInfo
-    (TermIsZero noInfo (TermPred noInfo (TermZero noInfo)))
-    (TermSucc noInfo (TermPred noInfo (TermSucc noInfo (TermZero noInfo))))
-    (TermTrue noInfo)
+  trm = TermIf (TermIsZero (TermPred TermZero))
+               (TermSucc (TermPred (TermSucc TermZero)))
+               TermTrue
 
-out = TermSucc (SrcInfo { lineNum = -1, charNum = -1 })
-               (TermZero (SrcInfo { lineNum = -1, charNum = -1 }))
+out = TermSucc TermZero
 
-out2 = TermSucc (SrcInfo { lineNum = -1, charNum = -1 })
-                (TermZero (SrcInfo { lineNum = -1, charNum = -1 }))
