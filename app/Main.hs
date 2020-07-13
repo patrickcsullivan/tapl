@@ -4,11 +4,11 @@ import           AST
 import           Evaluator
 
 main :: IO ()
-main = putStrLn $ show (eval trm)
- where
-  trm = TermIf (TermIsZero (TermPred TermZero))
-               (TermSucc (TermPred (TermSucc TermZero)))
-               TermTrue
+main = putStrLn $ show (evalSmall [] trm)
 
-out = TermSucc TermZero
+f =
+  TermAbs "x" (TermIf (TermVar 0 1) (TermSucc (TermSucc (TermZero))) (TermZero))
 
+g = TermAbs "x" (TermIsZero (TermVar 0 1))
+
+trm = TermApp f (TermApp g TermZero)
