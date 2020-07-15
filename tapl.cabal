@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 048936e3abf3fb5f30d4ed4e401ca546f0d491dbafbdd84ecd047b679bb43fd1
+-- hash: fcd918407f0568784a4008e063fa2f00c593d4d14b8da12fd6f3334321a46d81
 
 name:           tapl
 version:        0.1.0.0
@@ -29,6 +29,7 @@ library
   exposed-modules:
       AST
       Evaluator
+      TypeChecker
   other-modules:
       Paths_tapl
   hs-source-dirs:
