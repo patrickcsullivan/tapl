@@ -6,12 +6,12 @@ import           TypeChecker
 
 main :: IO ()
 main = do
-  putStrLn $ "f :: " ++ (show $ typeOf [] f)
-  putStrLn $ "g :: " ++ (show $ typeOf [] g)
-  putStrLn $ "plusOne :: " ++ (show $ typeOf [] plusOne)
-  putStrLn $ "plusTwo :: " ++ (show $ typeOf [] plusTwo)
-  putStrLn $ "trm :: " ++ (show $ typeOf [] trm)
-  putStrLn $ "OUTPUT: " ++ (show $ evalSmall [] trm)
+  putStrLn $ "f : " ++ (show $ typeOf [] f)
+  putStrLn $ "g : " ++ (show $ typeOf [] g)
+  putStrLn $ "plusOne : " ++ (show $ typeOf [] plusOne)
+  putStrLn $ "plusTwo : " ++ (show $ typeOf [] plusTwo)
+  putStrLn $ "trm : " ++ (show $ typeOf [] trm)
+  putStrLn $ "OUTPUT = " ++ (show $ evalSmall [] trm)
 
 -- Returns +2 if given True and returns +1 if given False.
 f = TermAbs "x" TyBool (TermIf (TermVar 0 1) plusTwo plusOne)
